@@ -18,7 +18,7 @@ cd /tmp; echo  "ALTER USER postgres with encrypted password 'postgres';" | /usr/
 # enable password login
 echo "host    replication     postgres        127.0.0.1/32            md5" >> /etc/postgresql/9.3/main/pg_hba.conf
 
-#restart server 
+#restart server
 service postgresql restart
 
 
@@ -46,7 +46,7 @@ cd /tmp; echo "$SQL" | /usr/bin/sudo -u postgres psql pgrouting; cd -
 
 pv /tmp/pgr_bckpu.sql.bz2 | bunzip2 | psql -U postgres -h localhost pgrouting
 
-# install lighthttpd (remember to attach the server to a security group with http 
+# install lighthttpd (remember to attach the server to a security group with http
 # access enabled ie launch-wizard-1 )
 # also some other packages
 apt-get install lighttpd python-pip git-core
@@ -54,16 +54,16 @@ pip install flup  flask
 
 cd /var/
 mv www /tmp/
-git clone https://github.com/gisgroup/api.git www
-chown postgres:www-data /var/www -Rf  
+git clone https://github.com/gisgroup/soeingisdingdemo.git www
+chown postgres:www-data /var/www -Rf
 
 # set lighttpd config files
 cp /var/www/server_config/lighttpd.conf /etc/lighttpd/lighttpd.conf
-cp /var/www/server_config/10-fastcgi.conf /etc/lighttpd/conf-available/10-fastcgi.conf 
+cp /var/www/server_config/10-fastcgi.conf /etc/lighttpd/conf-available/10-fastcgi.conf
 ln -s /etc/lighttpd/conf-available/10-fastcgi.conf /etc/lighttpd/conf-enabled
 
 # lighttpd now runs as postgres
-chmod g+rwx /var/log/lighttpd -Rf 
-chown postgres:www-data /var/www -Rf   
+chmod g+rwx /var/log/lighttpd -Rf
+chown postgres:www-data /var/www -Rf
 
 service lighttpd restart
