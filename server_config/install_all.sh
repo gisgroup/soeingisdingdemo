@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# Ensure root
+if [ "$(id -u)" != "0" ]; then
+   echo "This script must be run as root" 1>&2
+   exit 1
+fi
+
 # Add pgRouting launchpad repository
 sudo apt-add-repository -y ppa:ubuntugis/ppa
 sudo apt-add-repository -y ppa:georepublic/pgrouting
@@ -51,7 +57,7 @@ apt-get install lighttpd python-pip git-core
 pip install flup  flask
 
 cd ${0%/*}
-mv www /tmp/
+mv /var/www/ /tmp/
 mkdir /var/www
 #git clone https://github.com/gisgroup/soeingisdingdemo.git www
 cp -R ../* /var/www/
