@@ -64,7 +64,7 @@ cp -R ../* /var/www/
 cd /var/
 chown postgres:www-data /var/www -Rf
 
-PGPASSWORD=postgres pv /var/www/dump.sql.bz2 | bunzip2 | psql -U postgres -h localhost pgrouting
+pv /var/www/dump.sql.bz2 | bunzip2 | PGPASSWORD=postgres psql -U postgres -h localhost pgrouting
 
 # set lighttpd config files
 cp /var/www/server_config/lighttpd.conf /etc/lighttpd/lighttpd.conf
