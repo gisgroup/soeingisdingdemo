@@ -52,8 +52,9 @@ pip install flup  flask
 
 cd ${0%/*}
 mv www /tmp/
+mkdir /var/www
 #git clone https://github.com/gisgroup/soeingisdingdemo.git www
-cp -R .. /var/www
+cp -R ../* /var/www/
 cd /var/
 chown postgres:www-data /var/www -Rf
 
