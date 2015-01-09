@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-
 # Add pgRouting launchpad repository
 sudo apt-add-repository -y ppa:ubuntugis/ppa
 sudo apt-add-repository -y ppa:georepublic/pgrouting
@@ -51,9 +50,11 @@ cd /tmp; echo "$SQL" | /usr/bin/sudo -u postgres psql pgrouting; cd -
 apt-get install lighttpd python-pip git-core
 pip install flup  flask
 
-cd /var/
+cd ${0%/*}
 mv www /tmp/
-git clone https://github.com/gisgroup/soeingisdingdemo.git www
+#git clone https://github.com/gisgroup/soeingisdingdemo.git www
+cp -R .. /var/www
+cd /var/
 chown postgres:www-data /var/www -Rf
 
 pv /var/www/dump.sql.bz2 | bunzip2 | psql -U postgres -h localhost pgrouting
