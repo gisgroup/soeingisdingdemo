@@ -12,10 +12,10 @@ sudo apt-add-repository -y ppa:georepublic/pgrouting
 sudo apt-get update
 
 # Install pgRouting package (for Ubuntu 14.04)
-sudo apt-get install postgresql-9.3-pgrouting postgresql-server-dev-9.3  python-psycopg2 pv
+sudo apt-get --yes --force-yes install postgresql-9.3-pgrouting postgresql-server-dev-9.3  python-psycopg2 pv
 
 # Install osm2pgrouting package
-sudo apt-get install osm2pgrouting
+sudo apt-get --yes --force-yes install osm2pgrouting
 
 # set postgress user password
 cd /tmp; echo  "ALTER USER postgres with encrypted password 'postgres';" | /usr/bin/sudo -u postgres psql template1; cd -
@@ -53,7 +53,7 @@ cd /tmp; echo "$SQL" | /usr/bin/sudo -u postgres psql pgrouting; cd -
 # install lighthttpd (remember to attach the server to a security group with http
 # access enabled ie launch-wizard-1 )
 # also some other packages
-apt-get install lighttpd python-pip git-core
+apt-get install --yes --force-yes lighttpd python-pip git-core
 pip install flup  flask
 
 cd ${0%/*}
@@ -64,7 +64,7 @@ cp -R ../* /var/www/
 cd /var/
 chown postgres:www-data /var/www -Rf
 
-pv /var/www/dump.sql.bz2 | bunzip2 | psql -U postgres -h localhost pgrouting
+PGPASSWORD=postgres pv /var/www/dump.sql.bz2 | bunzip2 | psql -U postgres -h localhost pgrouting
 
 # set lighttpd config files
 cp /var/www/server_config/lighttpd.conf /etc/lighttpd/lighttpd.conf
