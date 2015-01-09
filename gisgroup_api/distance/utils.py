@@ -87,7 +87,7 @@ def calculate( origin_x, origin_y, target_x, target_y, testing=False):
         FROM
             pgr_kdijkstraCost(
                     'SELECT *
-                        FROM dk_vejnet',
+                        FROM danmark',
                     %(source)s,
                     %(target)s,
                     false,

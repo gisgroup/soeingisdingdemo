@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 from gisgroup_api.distance.utils import *
-from gisgroup_api.apis.rejseplanen import get as getrp
 
 if __name__ == '__main__':
     print  calculate(12.5579222330736, 55.6895903526632, 12.5679222330736, 55.6795903526632, testing=True), "\n"
