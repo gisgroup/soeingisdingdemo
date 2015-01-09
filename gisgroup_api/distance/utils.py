@@ -87,11 +87,7 @@ def calculate( origin_x, origin_y, target_x, target_y, testing=False):
         FROM
             pgr_kdijkstraCost(
                     'SELECT *
-                        FROM dk_vejnet
-                        WHERE
-                    ST_DWithin( geom,
-                        ST_SetSRID(ST_Point( %(x)s, %(y)s ), 4326)::geography,
-                                    %(radius)s) ',
+                        FROM dk_vejnet',
                     %(source)s,
                     %(target)s,
                     false,
