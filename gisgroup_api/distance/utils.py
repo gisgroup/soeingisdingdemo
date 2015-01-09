@@ -38,7 +38,7 @@ def nearest_neighbour( point ):
 	        SELECT source
 	        FROM dk_vejnet
 	        ORDER BY
-	                 ST_DISTANCE(geom, ST_SetSRID(ST_MakePoint( %(x)s, %(y)s ),4326)::geography)
+	                 geom::geometry <-> ST_SetSRID(ST_MakePoint( %(x)s, %(y)s ),4326)
 	        ASC LIMIT 1
         """
 
