@@ -121,8 +121,6 @@ def calculate( origin_x, origin_y, target_x, target_y, testing=False):
         if not testing:
             current_app.logger.debug( rows )
 
-        if testing:
-            print "dk_node_target", targets[seq][0]
 
 
     finally:
