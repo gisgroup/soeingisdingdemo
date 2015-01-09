@@ -44,7 +44,6 @@ CREATE EXTENSION pgrouting;"
 
 cd /tmp; echo "$SQL" | /usr/bin/sudo -u postgres psql pgrouting; cd -
 
-pv /tmp/pgr_bckpu.sql.bz2 | bunzip2 | psql -U postgres -h localhost pgrouting
 
 # install lighthttpd (remember to attach the server to a security group with http
 # access enabled ie launch-wizard-1 )
@@ -56,6 +55,8 @@ cd /var/
 mv www /tmp/
 git clone https://github.com/gisgroup/soeingisdingdemo.git www
 chown postgres:www-data /var/www -Rf
+
+pv /var/www/dump.sql.bz2 | bunzip2 | psql -U postgres -h localhost pgrouting
 
 # set lighttpd config files
 cp /var/www/server_config/lighttpd.conf /etc/lighttpd/lighttpd.conf
