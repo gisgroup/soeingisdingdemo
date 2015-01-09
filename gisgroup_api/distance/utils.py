@@ -35,10 +35,10 @@ def nearest_neighbour( point ):
         #          ASC LIMIT 1"""
 
         sql = """
-	        SELECT source, osm_name
-	        FROM danmark
+	        SELECT source
+	        FROM dk_vejnet
 	        ORDER BY
-	                 geom_way <-> ST_SetSRID(ST_MakePoint( %(x)s, %(y)s ),4326)
+	                 geom <-> ST_SetSRID(ST_MakePoint( %(x)s, %(y)s ),4326)
 	        ASC LIMIT 1
         """
 
@@ -68,11 +68,10 @@ def calculate( origin_x, origin_y, target_x, target_y, testing=False):
         # determine node closest to origin location
         origin = Point( origin_x, origin_y )
         target = Point( target_x, target_y )
-        (origin_node, origin_name) = nearest_neighbour( origin )
-        (target_node, target_name) = nearest_neighbour( target )
+        (origin_node) = nearest_neighbour( origin )
+        (target_node) = nearest_neighbour( target )
 
-        if not testing:
-            current_app.logger.debug( "Found %s" % origin_name )
+
 
 
 
@@ -87,7 +86,7 @@ def calculate( origin_x, origin_y, target_x, target_y, testing=False):
         FROM
             pgr_kdijkstraCost(
                     'SELECT *
-                        FROM danmark',
+                        FROM dk_vejnet',
                     %(source)s,
                     %(target)s,
                     false,
